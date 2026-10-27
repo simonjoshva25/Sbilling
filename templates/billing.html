@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<nav class="navbar bg-success" data-bs-theme="dark">
+    <h1 style="color: rgb(238, 240, 227);text-align: center;">SUPER MARKET BILLLING</h1>
+</nav>
+<body>
+    <div class="container mt-5">
+        <form method="GET">
+            <div class="row">
+            <div class="col-md-8">
+                <input type="text"name="search" class="form-control"placeholder="Search Product">
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary">Search</button>
+            </div>
+            </div>
+        </div>
+        </form>
+    <br>
+    {% if error %}
+    <div class="alert alert-danger">
+        {{error}}
+    </div>
+    {% endif %}
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Quantity</th>
+            <th>Add</th>
+        </tr>
+        {% for i in products %}
+        <tr>
+            <td>{{i.id}}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.price}}</td>
+            <td>{{i.stock}}</td>
+            <td>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="product_id" value="{{i.id}}">
+                <input type="number" name="quantity" value="1" min="1" class="form-control"></td>
+                <td>
+                    <button type="submit" class="btn btn-success">Add</button>
+                </form>
+            </td>
+        </tr>
+       {% endfor %}
+</table>
+<h3 >Bill</h3>
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Total</th>
+        <th>Actions</th>
+        <th>Clear all</th>
+    </tr>
+    {% for item in bill_items %}
+    <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.price}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.total}}</td>
+        <td><a href="{% url 'remove' item.id %}" class="btn btn-danger" >Remove</a></td>
+    </tr>
+    
+    {% empty %}
+    <tr>
+        <td colspan="4">No products added</td>
+    </tr>
+    {% endfor %}
+    <tr>
+        <th colspan="4">Grand Total</th>
+        <th>{{grand_total}}</th>
+        <td><a href="{% url 'clear' %}" class="btn btn-danger">Clear</a></td>
+        <td><a href="{% url 'complete_bill'%}" class="btn btn-success">Complete Bill
+        </a></td>
+    </tr>
+</table>
+
+
+    
+    
+</body>
+</html>

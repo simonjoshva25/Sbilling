@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav class="navbar bg-primary" data-bs-theme="dark">
+    <h1 style="color: rgb(255, 255, 255);text-align: center;">SUPER MARKET BILLING SYSTEM</h1>
+</nav>
+  <div class="text-end">
+   <a href="/addproduct/" style="margin-top: 40px;" class="btn btn-success">Add Products</a>
+   <nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+   <form class="d-flex" method="GET" >
+   <input class="form-control me-2" style="width: 300px;margin-top: -40px;" type="text" name="search" placeholder="Search Product" value="{{request.GET.search}}" aria-label="Search">
+   <i class="fa-brands fa-searchengin"></i>  
+    <button class="btn btn-outline-success" style="margin-top: -40px;"  type="submit">Search</button>
+   </form>
+   </div>
+   </nav>
+   <a class="btn btn-danger " href="/billing/">Buy Products</a>
+    <CENTER>        
+        <table border="4">
+            <thead>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>CATEGORY</th>
+                <th>SUPPLIER</th>
+                <th>PRICE</th>
+                <th>STOCK</th>
+                <th>Actions</th>
+            </thead>
+            {%for i in s%}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.category}}</td>
+                <td>{{i.supplier}}</td>
+                <td>{{i.price}}</td>
+                <td>{{i.stock}}</td>
+                <td><a href="/delete/{{i.id}}/" class="btn btn-danger btn-sm">Delete </a>
+                    |<a href="/update/{{i.id}}/" class="btn btn-primary btn-sm">Update</a></td>                
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No products Found</td> 
+            </tr>
+            {%endfor%}
+        </table>
+    </CENTER>
+    
+</body>
+</html>

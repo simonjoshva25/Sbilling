@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudfare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+   
+</head>
+<body>
+<nav class="navbar bg-primary" data-bs-theme="dark">
+    <h1 style="color: rgb(255, 255, 255);">UPDATE PRODUCT INFORMATIONS</h1>
+</nav>
+<center>
+<div class="row justify-content-center">
+    
+    <form method="POST">
+
+        {%csrf_token%}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary">Update Product</button>
+        <a href="/product/" class="btn btn-secondary">Cancel</a>
+    </form>
+
+</div>
+</body>
+</center>
+</html>

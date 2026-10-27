@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout-Super Market Billing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">
+        SUPER MARKET BILLING 
+    </h1>
+    <div class="card shadow">
+        <div class="card-header bg-dard text-white">
+            <h3 class="mb-0">Checkout</h3>
+
+        </div>
+        <div class="card-body">
+
+            {% if error %}
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+            {% endif %}
+            <h4 class="mb-3">Bill Items</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID</th>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in bill_items %}
+                        <tr>
+                            <td>{{item.id}}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.total }}</td>
+
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No item in bill</td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+        <div class="text-end mb-4">
+            <h3>
+                Grand Total:<strong>{{ grand_total }}</strong>
+            </h3>
+        </div>
+        <form method="POST" action="{% url 'complete_bill' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label">
+                    Customer Name
+                </label>
+                <input type="text" name="customer_name" class="form-control" placeholder="Enter Customer Name" required>
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Customer Phone No:
+                </label>
+                <input type="text" name="mobile_no" class="form-control" placeholder="Enter Customer No" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">
+                    Payment Method
+                </label>
+                <select name="payment_method" class="form-select" required>
+                    <option value="">
+                        Select Payment Method
+                    </option>
+                    <option value="Cash">Cash</option>
+                    <option value="Card">Card</option>
+                    <option value="UPI">UPI</option>
+
+                </select>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'billing' %}" class="btn btn-secondary">Back to Billing</a>
+                <button type="submit" class="btn btn-success">
+                    Confirm Checkout
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>
+<script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</script>
+    
+</body>
+</html>

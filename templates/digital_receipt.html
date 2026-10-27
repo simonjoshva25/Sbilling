@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Digital Receipt</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #eeeeee;
+        }
+        .header {
+            background: white;
+            text-align: center;
+            padding: 25px;
+        }
+        .logo {
+            color: #d71920;
+            font-size: 42px;
+            font-weight: bold;
+        }
+        .receipt {
+            max-width: 700px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+        }
+        .title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f7f7f7;
+            border-radius: 10px;
+        }
+        .info p {
+            margin: 8px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+        th {
+            background: #222;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        .grand-total {
+            text-align: right;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .buttons {
+            text-align: center;
+            margin-top: 25px;
+        }
+        button {
+            background: #e51c23;
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        @media(max-width:600px) {
+
+            .receipt {
+                margin: 10px;
+                padding: 15px;
+            }
+            .logo {
+                font-size: 32px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="header">
+    <div class="logo">
+        SUPER MARKET
+    </div>
+</div>
+<div class="receipt">
+    <div class="title">
+        Digital Receipt
+    </div>
+    <hr>
+    <div class="info">
+        <p>
+            <strong>Bill ID:</strong>
+            {{ bill.id }}
+        </p>
+        <p>
+            <strong>Customer:</strong>
+            {{ bill.customer_name }}
+        </p>
+        <p>
+            <strong>Customer No:</strong>
+            {{ bill.phone }}
+        </p>
+        <p>
+            <strong>Payment:</strong>
+            {{ bill.payment_method }}
+        </p>
+        <p>
+            <strong>Date:</strong>
+            {{ bill.bill_date }}
+        </p>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in bill_items %}
+            <tr>
+                <td>
+                    {{ item.product.name }}
+                </td>
+
+                <td>
+                    ₹{{ item.price }}
+                </td>
+
+                <td>
+                    {{ item.quantity }}
+                </td>
+
+                <td>
+                    ₹{{ item.total }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="grand-total">
+        Grand Total:
+        ₹{{ bill.total_amount }}
+    </div>
+    <div class="buttons">
+        <button onclick="window.print()">
+            Download / Print Invoice
+        </button>
+    </div>
+</div>
+</body>
+</html>
