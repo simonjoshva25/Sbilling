@@ -21,7 +21,7 @@ from billing import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('addproduct/',views.add_product),
-    path('product/',views.product_list),
+    path('',views.product_list,name='home'),
     path('delete/<int:id>/',views.delete),
     path('update/<int:id>/',views.update),
     path('billing/',views.billing,name="billing"),

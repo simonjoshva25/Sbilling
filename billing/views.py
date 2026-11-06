@@ -18,7 +18,7 @@ def product_list(request):
             )
     else:
         products=Product.objects.all()
-    return render(request,'product.html',{'s':products})
+    return render(request,'index.html',{'s':products})
 def add_product(request):
     form=ProductForm()
     if request.method=='POST':
