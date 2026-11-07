@@ -2,4 +2,4 @@ Django==4.2.30
 asgiref==3.12.1
 sqlparse==0.5.5
 python-dotenv==1.2.3
-mysql-connector-python==26.10.0
+PyMySQL
